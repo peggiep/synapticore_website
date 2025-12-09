@@ -628,6 +628,7 @@
             margin-left: 10px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             color: var(--signal-white);
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
             font-family: 'Chakra Petch', sans-serif;
@@ -639,6 +640,36 @@
             margin-right: 15px;
             font-size: 1.5em;
             color: var(--synapse-cyan);
+            filter: drop-shadow(0 0 8px var(--synapse-cyan));
+        }
+        
+        .service-link-icon {
+            margin-left: auto;
+            color: var(--synapse-cyan);
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(0, 255, 194, 0.1);
+            border: 1px solid rgba(0, 255, 194, 0.3);
+        }
+        
+        .service-link-icon:hover {
+            opacity: 1;
+            transform: scale(1.1) rotate(45deg);
+            background: rgba(0, 255, 194, 0.2);
+            border-color: var(--synapse-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 194, 0.5);
+        }
+        
+        .service-link-icon i {
+            margin: 0;
             filter: drop-shadow(0 0 8px var(--synapse-cyan));
         }
         
@@ -1235,7 +1266,6 @@
                 <a href="#advantages" class="nav-link">Corporate DNA</a>
                 <a href="#tags" class="nav-link">Genesis Portal</a>
                 <a href="research.html" class="nav-link">Research</a>
-                <a href="synaflex.html" class="nav-link">SynaFlex</a>
                 <a href="#footer" class="nav-link">Contact</a>
             </div>
             <button class="mobile-menu-btn">
@@ -1298,7 +1328,11 @@
                 <div class="service-card">
                     <div class="service-header">
                         <h3 class="service-title">
-                            SynaFlex: The Cognitive RAM Expansion                        </h3>
+                            SynaFlex: The Cognitive RAM Expansion
+                            <a href="synaflex.html" class="service-link-icon" title="View SynaFlex Details">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </h3>
                     </div>
                     <div class="service-body">
                         <p class="service-description">
