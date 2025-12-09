@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SynaFlex: RAM for the Human Brain | Synapticore</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Roboto:wght@400;500&family=Inter+Tight:wght@400;500;600&family=Space+Mono:wght@400&family=JetBrains+Mono:wght@400&display=swap">
+    <style>
+        :root {
+            --void-black: #050505;
+            --void-black-edge: #000000;
+            --signal-white: #FFFFFF;
+            --phantom-grey: rgba(58, 63, 69, 0.15);
+            --glass-surface: rgba(255, 255, 255, 0.03);
+            --synapse-cyan: #00FFC2;
+            --text-color: var(--signal-white);
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: radial-gradient(circle at center, var(--void-black) 0%, var(--void-black-edge) 100%);
+            color: var(--text-color);
+            line-height: 1.8;
+            overflow-x: hidden;
+            font-family: 'Roboto', sans-serif;
+            padding-top: 80px;
+        }
+        
+        /* Ambient Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .bg-text {
+            position: absolute;
+            font-family: 'Space Mono', monospace;
+            font-size: 10em;
+            color: var(--phantom-grey);
+            opacity: 0.1;
+            filter: blur(20px);
+            white-space: nowrap;
+            animation: float-slow linear infinite;
+            user-select: none;
+            text-transform: uppercase;
+        }
+        
+        @keyframes float-slow {
+            0% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(-5%, 5%) scale(1.02); }
+            50% { transform: translate(0, 10%) scale(1); }
+            75% { transform: translate(5%, 5%) scale(0.98); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 10px 0;
+        }
+        
+        .nav-logo img {
+            max-height: 35px;
+            width: auto;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 5px;
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .nav-link:hover {
+            color: var(--signal-white);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--synapse-cyan);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--synapse-cyan);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            padding: 120px 30px 80px;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .hero-title {
+            font-size: 5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--signal-white);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: title-glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes title-glow {
+            0% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(0, 255, 194, 0.2); }
+            100% { text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(0, 255, 194, 0.4); }
+        }
+        
+        .hero-subtitle {
+            font-size: 2em;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .hero-tagline {
+            font-size: 1.5em;
+            color: var(--synapse-cyan);
+            font-weight: 600;
+            margin-top: 30px;
+            font-family: 'Chakra Petch', sans-serif;
+            text-shadow: 0 0 20px rgba(0, 255, 194, 0.5);
+            animation: pulse-cyan 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-cyan {
+            0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(0, 255, 194, 0.5); }
+            50% { opacity: 0.8; text-shadow: 0 0 30px rgba(0, 255, 194, 0.8); }
+        }
+        
+        /* Content Sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 3em;
+            font-weight: 600;
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--signal-white);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--glass-surface);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: visible;
+            animation: brownian-float 15s ease-in-out infinite alternate;
+        }
+        
+        @keyframes brownian-float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-2px, 3px) rotate(0.5deg); }
+            50% { transform: translate(2px, -2px) rotate(-0.5deg); }
+            75% { transform: translate(-3px, 2px) rotate(0.3deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(0px);
+            border-color: var(--synapse-cyan);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--synapse-cyan) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            border-radius: 15px;
+        }
+        
+        .card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .card:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50px;
+            right: -50px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, transparent 20%, var(--synapse-cyan) 50%, transparent 80%, transparent);
+            animation: synapse-glow 2s ease-in-out infinite;
+            z-index: 10;
+        }
+        
+        @keyframes synapse-glow {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .card-title {
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--signal-white);
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .card-content {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+        
+        .card-content strong {
+            color: var(--signal-white);
+            font-weight: 600;
+        }
+        
+        .card-content em {
+            color: var(--synapse-cyan);
+            font-style: normal;
+            font-weight: 600;
+        }
+        
+        /* Use Case Cards */
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .use-case-card {
+            background: var(--glass-surface);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: visible;
+            animation: brownian-float 15s ease-in-out infinite alternate;
+        }
+        
+        .use-case-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--synapse-cyan);
+            box-shadow: 0 0 40px rgba(0, 255, 194, 0.3);
+        }
+        
+        .use-case-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .use-case-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--signal-white);
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 0.05em;
+        }
+        
+        .use-case-scenario {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .use-case-action {
+            color: var(--synapse-cyan);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .use-case-result {
+            color: var(--text-secondary);
+        }
+        
+        /* Business Model Section */
+        .business-model {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .business-card {
+            background: var(--glass-surface);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            animation: brownian-float 15s ease-in-out infinite alternate;
+        }
+        
+        .business-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--synapse-cyan);
+            box-shadow: 0 0 30px rgba(0, 255, 194, 0.3);
+        }
+        
+        .business-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--signal-white);
+            font-family: 'Chakra Petch', sans-serif;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .business-price {
+            font-size: 2em;
+            color: var(--synapse-cyan);
+            font-weight: 600;
+            margin: 15px 0;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+        
+        /* Vision Section */
+        .vision-section {
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .vision-text {
+            font-size: 1.5em;
+            color: var(--text-secondary);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 2;
+        }
+        
+        .vision-text strong {
+            color: var(--signal-white);
+            font-weight: 600;
+        }
+        
+        .vision-text em {
+            color: var(--synapse-cyan);
+            font-style: normal;
+            font-weight: 600;
+        }
+        
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5em;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
+            
+            .use-case-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .business-model {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient Background -->
+    <div class="bg-animation">
+        <div class="bg-text" style="top: 10%; left: 20%; animation-duration: 15s;" data-text="SYNAFLEX">SYNAFLEX</div>
+        <div class="bg-text" style="top: 50%; left: 50%; animation-duration: 25s;" data-text="RAM">RAM</div>
+        <div class="bg-text" style="top: 70%; left: 30%; animation-duration: 20s;" data-text="BRAIN">BRAIN</div>
+        <div class="bg-text" style="top: 30%; left: 80%; animation-duration: 18s;" data-text="DOWNLOAD">DOWNLOAD</div>
+        <div class="bg-text" style="top: 90%; left: 10%; animation-duration: 22s;" data-text="SKILLS">SKILLS</div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="logo-text.svg" alt="Synapticore">
+            </a>
+            <div class="nav-links">
+                <a href="index.html#products" class="nav-link">Products & Services</a>
+                <a href="index.html#advantages" class="nav-link">Corporate DNA</a>
+                <a href="index.html#tags" class="nav-link">Genesis Portal</a>
+                <a href="research.html" class="nav-link">Research</a>
+                <a href="synaflex.html" class="nav-link">SynaFlex</a>
+                <a href="index.html#footer" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">SYNAFLEX</h1>
+            <h2 class="hero-subtitle">RAM for the Human Brain</h2>
+            <p class="hero-tagline">The World's First "Plug-and-Play" Neuro-SaaS Platform</p>
+        </div>
+    </section>
+    
+    <!-- Problem Section -->
+    <section class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">1. The Problem: The Learning Latency Gap</h2>
+            <div class="card">
+                <div class="card-content">
+                    <p style="font-size: 1.3em; margin-bottom: 30px; color: var(--synapse-cyan); font-weight: 600;">Humanity has a bandwidth problem.</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 20px; padding-left: 30px; position: relative;">
+                            <strong style="color: var(--signal-white);">Inefficient:</strong> We spend decades "training" our neural networks (education) for skills we may only use once.
+                        </li>
+                        <li style="margin-bottom: 20px; padding-left: 30px; position: relative;">
+                            <strong style="color: var(--signal-white);">Volatile:</strong> We forget 80% of what we learn within 48 hours (Ebbinghaus Forgetting Curve).
+                        </li>
+                        <li style="margin-bottom: 20px; padding-left: 30px; position: relative;">
+                            <strong style="color: var(--signal-white);">The Gap:</strong> In a high-speed world, biological learning is too slow. Why spend 3 months learning "Survival Japanese" for a 5-day trip?
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Solution Section -->
+    <section class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">2. The Solution: SynaFlex</h2>
+            <div class="card">
+                <div class="card-content">
+                    <p style="font-size: 1.5em; margin-bottom: 30px; color: var(--synapse-cyan); font-weight: 600; text-align: center; font-family: 'Chakra Petch', sans-serif;">"Don't Learn It. Just Download It."</p>
+                    <p style="margin-bottom: 20px;">SynaFlex is the digital evolution of the "Memory Bread." We provide an App Store for the brain, allowing users to download <strong>temporary, high-fidelity skill modules</strong> directly into short-term memory via BCI.</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px; padding-left: 30px;">
+                            <strong style="color: var(--signal-white);">Instant Access:</strong> Download "Macroeconomics 101" in 10 minutes.
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 30px;">
+                            <strong style="color: var(--signal-white);">Zero Bloat:</strong> Modules automatically <strong>decay</strong> (fade) after use, keeping neural bandwidth clear.
+                        </li>
+                        <li style="margin-bottom: 15px; padding-left: 30px;">
+                            <strong style="color: var(--signal-white);">On-Demand:</strong> Pay for knowledge only when you need it.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Technology Section -->
+    <section class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">3. Core Technology: The Neuro-Content Protocol</h2>
+            <div class="card">
+                <div class="card-content">
+                    <p style="margin-bottom: 20px;">We do not build hardware. We build the <strong>Operating System</strong> that translates human knowledge into neural code.</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 20px; padding-left: 30px;">
+                            <strong style="color: var(--signal-white);">The <code style="color: var(--synapse-cyan); font-family: 'JetBrains Mono', monospace;">.mem</code> Format:</strong> A proprietary file standard that packages text, logic, and muscle memory into executable <strong>Neural Spike Trains</strong>.
+                        </li>
+                        <li style="margin-bottom: 20px; padding-left: 30px;">
+                            <strong style="color: var(--signal-white);">Artificial Decay Engine:</strong> Our core IP. An algorithm that manages the "half-life" of a memory module (e.g., 7 days), preventing cognitive overload and ensuring the process is reversible.
+                        </li>
+                        <li style="margin-bottom: 20px; padding-left: 30px;">
+                            <strong style="color: var(--signal-white);">Absorption Metric:</strong> Real-time monitoring of <strong>Hebbian Resonance</strong>. If a user truly masters a skill, the system detects organic synaptic growth and suggests converting the temporary module into permanent memory.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Use Cases Section -->
+    <section class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">4. Use Cases: Skills as a Service (SaaS)</h2>
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <span class="use-case-icon">💊</span>
+                    <h3 class="use-case-title">The Crammer (Academic)</h3>
+                    <p class="use-case-scenario"><strong>Scenario:</strong> An exam in 12 hours. Zero preparation.</p>
+                    <p class="use-case-action"><strong>Action:</strong> Download <em>"Calculus: Finals Edition ($4.99)"</em>.</p>
+                    <p class="use-case-result"><strong>Result:</strong> Answers flow instinctively during the test. The knowledge fades 48 hours later.</p>
+                </div>
+                <div class="use-case-card">
+                    <span class="use-case-icon">🌏</span>
+                    <h3 class="use-case-title">The Traveler (Translation)</h3>
+                    <p class="use-case-scenario"><strong>Scenario:</strong> Landing in Tokyo. No language skills.</p>
+                    <p class="use-case-action"><strong>Action:</strong> Download <em>"Business Japanese: 7-Day Pass"</em>.</p>
+                    <p class="use-case-result"><strong>Result:</strong> Speak and understand essential phrases via instinct, not translation.</p>
+                </div>
+                <div class="use-case-card">
+                    <span class="use-case-icon">🍷</span>
+                    <h3 class="use-case-title">The Socialite (Lifestyle)</h3>
+                    <p class="use-case-scenario"><strong>Scenario:</strong> A high-stakes dinner with wine connoisseurs.</p>
+                    <p class="use-case-action"><strong>Action:</strong> Download <em>"Sommelier Basics"</em>.</p>
+                    <p class="use-case-result"><strong>Result:</strong> Instantly identify tannins and regions. Delete after dessert.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Business Model Section -->
+    <section class="section fade-in">
+        <div class="container">
+            <h2 class="section-title">5. Business Model: The "Bakery" Marketplace</h2>
+            <div class="business-model">
+                <div class="business-card">
+                    <h3 class="business-title">Micro-transactions</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">Users buy specific modules</p>
+                    <p class="business-price">$0.99 - $19.99</p>
+                </div>
+                <div class="business-card">
+                    <h3 class="business-title">SynaFlex Pro</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">Subscription</p>
+                    <ul style="list-style: none; padding: 0; color: var(--text-secondary); text-align: left;">
+                        <li style="margin-bottom: 10px;">✓ Unlimited access to "General Knowledge" library</li>
+                        <li style="margin-bottom: 10px;">✓ "Deep Consolidation" feature: AI-assisted conversion of temporary skills into permanent biological memory</li>
+                    </ul>
+                </div>
+                <div class="business-card">
+                    <h3 class="business-title">B2B Licensing</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">3rd party course compilation</p>
+                    <p class="business-price">30% Commission</p>
+                    <p style="color: var(--text-secondary); margin-top: 15px; font-size: 0.9em;">Partners: Duolingo, Harvard, etc.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Vision Section -->
+    <section class="vision-section fade-in">
+        <div class="container">
+            <h2 class="section-title">6. Vision: The Cognitive App Store</h2>
+            <div class="card">
+                <p class="vision-text">
+                    Hardware is ready (Neuralink, Synchron). AI is ready (LLMs). The missing link is the <strong>Application Layer</strong>.
+                </p>
+                <p class="vision-text" style="margin-top: 30px;">
+                    SynaFlex is not just a study tool; it is the <em>RAM expansion for the human mind</em>. We turn knowledge into a utility—like water or electricity—available instantly, on demand.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Parallax effect for background text
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const bgTexts = document.querySelectorAll('.bg-text');
+            bgTexts.forEach((text, index) => {
+                const speed = 0.5 + (index * 0.1);
+                text.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
+
