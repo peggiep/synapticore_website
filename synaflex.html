@@ -208,6 +208,66 @@
             50% { opacity: 0.8; text-shadow: 0 0 30px rgba(0, 255, 194, 0.8); }
         }
         
+        /* Hero Video */
+        .hero-video-container {
+            margin: 60px auto 30px;
+            max-width: 1000px;
+            position: relative;
+        }
+        
+        .hero-video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: radial-gradient(circle at center, var(--void-black) 0%, var(--void-black-edge) 100%);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        
+        .hero-video-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 194, 0.03) 0%, transparent 50%, rgba(0, 255, 194, 0.03) 100%);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        .hero-video-description {
+            margin-top: 30px;
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        .hero-video-description strong {
+            color: var(--signal-white);
+        }
+        
+        .hero-video-description code {
+            color: var(--synapse-cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
         /* Content Sections */
         .container {
             max-width: 1200px;
@@ -699,6 +759,19 @@
             <h1 class="hero-title">SYNAFLEX</h1>
             <h2 class="hero-subtitle">RAM for the Human Brain</h2>
             <p class="hero-tagline">The World's First "Plug-and-Play" Neuro-SaaS Platform</p>
+            
+            <!-- Demo Video -->
+            <div class="hero-video-container">
+                <div class="hero-video-wrapper">
+                    <video class="hero-video" controls autoplay muted loop playsinline>
+                        <source src="demo_synaflex.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p class="hero-video-description">
+                    Witness the SynaFlex workflow: A US diplomat downloads a Mandarin <code>.mem</code> module, assimilates the neural patterns during sleep, and wakes up fluent for a high-stakes negotiation.
+                </p>
+            </div>
         </div>
     </section>
     
