@@ -451,6 +451,95 @@
             font-weight: 600;
         }
         
+        /* Architecture Image */
+        .architecture-container {
+            margin: 40px 0;
+            position: relative;
+            text-align: center;
+        }
+        
+        .architecture-wrapper {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            background: radial-gradient(circle at center, var(--void-black) 0%, var(--void-black-edge) 100%);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        
+        .architecture-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 194, 0.03) 0%, transparent 50%, rgba(0, 255, 194, 0.03) 100%);
+            border-radius: 15px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        .architecture-image {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            filter: brightness(0.95) contrast(1.1);
+            transition: filter 0.3s ease;
+            z-index: 1;
+        }
+        
+        .architecture-wrapper:hover .architecture-image {
+            filter: brightness(1.05) contrast(1.15);
+        }
+        
+        .architecture-scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent 0%, rgba(0, 255, 194, 0.6) 20%, rgba(0, 255, 194, 1) 50%, rgba(0, 255, 194, 0.6) 80%, transparent 100%);
+            box-shadow: 0 0 30px rgba(0, 255, 194, 1), 0 0 60px rgba(0, 255, 194, 0.8), 0 0 90px rgba(0, 255, 194, 0.6);
+            animation: scanline-move 3s linear infinite;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0.9;
+            filter: blur(0.5px);
+        }
+        
+        @keyframes scanline-move {
+            0% { top: 0; opacity: 0.9; transform: translateY(0); }
+            50% { top: calc(100% - 4px); opacity: 1; transform: translateY(0); }
+            100% { top: 0; opacity: 0.9; transform: translateY(0); }
+        }
+        
+        .architecture-noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 5;
+            mix-blend-mode: overlay;
+            animation: noise-flicker 0.15s infinite;
+            border-radius: 15px;
+        }
+        
+        @keyframes noise-flicker {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.5; }
+        }
+        
         /* Scroll Animation */
         .fade-in {
             opacity: 0;
@@ -587,6 +676,15 @@
                             <strong style="color: var(--signal-white);">Absorption Metric:</strong> Real-time monitoring of <strong>Hebbian Resonance</strong>. If a user truly masters a skill, the system detects organic synaptic growth and suggests converting the temporary module into permanent memory.
                         </li>
                     </ul>
+                    
+                    <!-- Architecture Diagram -->
+                    <div class="architecture-container">
+                        <div class="architecture-wrapper">
+                            <div class="architecture-noise"></div>
+                            <img src="architecture_synaflex.png" alt="SynaFlex Architecture" class="architecture-image">
+                            <div class="architecture-scanline"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
