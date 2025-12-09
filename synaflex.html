@@ -426,29 +426,120 @@
             font-family: 'Chakra Petch', sans-serif;
         }
         
-        /* Vision Section */
+        /* Vision Section / Roadmap */
         .vision-section {
-            text-align: center;
             padding: 100px 0;
         }
         
-        .vision-text {
-            font-size: 1.5em;
-            color: var(--text-secondary);
-            max-width: 900px;
+        .roadmap-timeline {
+            position: relative;
+            max-width: 1000px;
             margin: 0 auto;
-            line-height: 2;
         }
         
-        .vision-text strong {
-            color: var(--signal-white);
-            font-weight: 600;
+        .roadmap-phase {
+            margin-bottom: 60px;
+            position: relative;
+            padding-left: 40px;
         }
         
-        .vision-text em {
+        .roadmap-phase::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--synapse-cyan);
+            opacity: 0.3;
+        }
+        
+        .roadmap-phase::after {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 8px;
+            width: 14px;
+            height: 14px;
+            background: var(--synapse-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--synapse-cyan);
+        }
+        
+        .phase-header {
+            margin-bottom: 20px;
+        }
+        
+        .phase-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.8em;
             color: var(--synapse-cyan);
-            font-style: normal;
-            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .phase-subtitle {
+            font-size: 1em;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+        
+        .phase-timeline {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        .phase-content {
+            margin-top: 20px;
+        }
+        
+        .phase-item {
+            margin-bottom: 25px;
+        }
+        
+        .phase-item-title {
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.2em;
+            color: var(--signal-white);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        
+        .phase-item-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        
+        .phase-item-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+        
+        .phase-item-content li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+        
+        .phase-item-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--synapse-cyan);
+        }
+        
+        .phase-item-content strong {
+            color: var(--signal-white);
+        }
+        
+        .phase-item-content code {
+            color: var(--synapse-cyan);
+            font-family: 'JetBrains Mono', monospace;
         }
         
         /* Architecture Image */
@@ -751,134 +842,95 @@
     <!-- Roadmap Section -->
     <section class="vision-section fade-in">
         <div class="container">
-            <h2 class="section-title">Our Roadmap</h2>
-            
-            <!-- Phase 1 -->
-            <div class="card" style="margin-bottom: 40px;">
-                <h3 class="card-title" style="color: var(--synapse-cyan); margin-bottom: 15px;">Phase 1: Proof of Concept & Data Infrastructure</h3>
-                <p style="margin-bottom: 20px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Objective:</strong> Prove "algorithm effectiveness" using non-invasive devices without invasive surgery, and establish a working data pipeline.</p>
-                <p style="margin-bottom: 30px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Timeline:</strong> 0 - 12 months</p>
-                
-                <div style="margin-bottom: 30px;">
-                    <h4 style="color: var(--signal-white); font-family: 'Chakra Petch', sans-serif; font-size: 1.3em; margin-bottom: 15px; text-transform: uppercase;">1. Build Knowledge Graph Engine</h4>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Task:</strong> Abandon text storage, establish a knowledge base based on <strong style="color: var(--synapse-cyan);">Sparse Distributed Representations (SDR)</strong>.</p>
-                    <p style="margin-bottom: 10px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Actions:</strong></p>
-                    <ul style="list-style: none; padding-left: 0; margin-bottom: 20px;">
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            <strong style="color: var(--signal-white);">Data Cleaning:</strong> Integrate <strong style="color: var(--synapse-cyan);">Wolfram Alpha</strong> API to convert mathematical formulas into logical topology graphs.
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            <strong style="color: var(--signal-white);">Course Structuring:</strong> Negotiate data partnerships with <strong style="color: var(--synapse-cyan);">Duolingo</strong> to obtain "optimal path trees" for language learning.
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            <strong style="color: var(--signal-white);">Output:</strong> The output here is not neural signals, but high-dimensional vectors (Vector Embeddings), preparing for the next step.
-                        </li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 style="color: var(--signal-white); font-family: 'Chakra Petch', sans-serif; font-size: 1.3em; margin-bottom: 15px; text-transform: uppercase;">2. Develop SynaFlex v0.1 (Non-Invasive Demo)</h4>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Hardware Platform:</strong> <strong style="color: var(--synapse-cyan);">OpenBCI (Galea)</strong> or <strong style="color: var(--synapse-cyan);">tDCS (transcranial direct current stimulation)</strong> devices.</p>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Core Experiment:</strong> "The 300% Challenge"</p>
-                    <ul style="list-style: none; padding-left: 0; margin-bottom: 20px;">
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            Recruit 50 volunteers to memorize obscure words.
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            <strong style="color: var(--signal-white);">Control Group:</strong> Traditional memorization.
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            <strong style="color: var(--signal-white);">Experimental Group:</strong> Wear SynaFlex v0.1, receive specific frequency tDCS stimulation during learning (simplified version of "write" simulation).
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            <strong style="color: var(--signal-white);">KPI:</strong> Prove that the experimental group's <strong style="color: var(--synapse-cyan);">Memory Retention Rate</strong> increases by 300%.
-                        </li>
-                    </ul>
-                    <p style="margin-top: 20px; color: var(--text-secondary); font-style: italic;"><strong style="color: var(--synapse-cyan);">Value:</strong> This is the key data for your Series A funding. Prove that your "software + stimulation" logic is valid.</p>
-                </div>
-            </div>
-            
-            <!-- Phase 2 -->
-            <div class="card" style="margin-bottom: 40px;">
-                <h3 class="card-title" style="color: var(--synapse-cyan); margin-bottom: 15px;">Phase 2: Conquer Core Barriers—The Neuro Protocol & Translation</h3>
-                <p style="margin-bottom: 20px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Objective:</strong> Build the "translator" to bridge the final mile from silicon-based data to carbon-based signals.</p>
-                <p style="margin-bottom: 30px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Timeline:</strong> 12 - 24 months</p>
-                
-                <div style="margin-bottom: 30px;">
-                    <h4 style="color: var(--signal-white); font-family: 'Chakra Petch', sans-serif; font-size: 1.3em; margin-bottom: 15px; text-transform: uppercase;">3. Define Neuro-Content Protocol (NCP Protocol)</h4>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Partners:</strong> <strong style="color: var(--synapse-cyan);">Theodore Berger (USC) & Dong Song</strong> team.</p>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Core R&D:</strong></p>
-                    <ul style="list-style: none; padding-left: 0; margin-bottom: 20px;">
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            <strong style="color: var(--signal-white);">Encoding Mapping:</strong> Map Phase 1 knowledge graph vectors to <strong style="color: var(--synapse-cyan);">Spatiotemporal Spike Patterns</strong> in hippocampal CA1/CA3 regions.
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            <strong style="color: var(--signal-white);">Define Syntax:</strong> Determine which pulse intervals represent "causal relationships" and which waveforms represent "parallel relationships."
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            <strong style="color: var(--signal-white);">Numenta Partnership:</strong> Utilize Jeff Hawkins' <strong style="color: var(--synapse-cyan);">HTM Theory</strong> to optimize encoding efficiency, ensuring signals conform to the predictive mechanisms of the cerebral cortex.
-                        </li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 style="color: var(--signal-white); font-family: 'Chakra Petch', sans-serif; font-size: 1.3em; margin-bottom: 15px; text-transform: uppercase;">4. Animal/Clinical Validation (In-Vivo Validation)</h4>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Hardware Platform:</strong> <strong style="color: var(--synapse-cyan);">Blackrock Neurotech</strong> (utilizing their existing clinical implant resources).</p>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Experiment:</strong> Input a simple "NCP-encoded" logic (e.g., red light on → press left key) into monkeys or volunteers with implanted electrodes, and observe whether learning time is shortened.</p>
-                </div>
-            </div>
-            
-            <!-- Phase 3 -->
+            <h2 class="section-title">6. Our Roadmap</h2>
             <div class="card">
-                <h3 class="card-title" style="color: var(--synapse-cyan); margin-bottom: 15px;">Phase 3: Closed Loop & Commercial MVP Launch</h3>
-                <p style="margin-bottom: 20px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Objective:</strong> Achieve "absorption rate assessment" and launch SynaFlex 1.0 App.</p>
-                <p style="margin-bottom: 30px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Timeline:</strong> 24 - 36 months</p>
-                
-                <div style="margin-bottom: 30px;">
-                    <h4 style="color: var(--signal-white); font-family: 'Chakra Petch', sans-serif; font-size: 1.3em; margin-bottom: 15px; text-transform: uppercase;">5. Develop "Neural Echo" Monitoring Algorithm (The Feedback Loop)</h4>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Principle:</strong> Monitor <strong style="color: var(--synapse-cyan);">Sharp-Wave Ripples (SWRs)</strong>. These are characteristic waves of the hippocampus "replaying" memories during rest.</p>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Algorithm Logic:</strong></p>
-                    <ul style="list-style: none; padding-left: 0; margin-bottom: 20px;">
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            BCI stops input → Monitor SWRs → If SWR patterns highly correlate with input patterns → Determine as <strong style="color: var(--synapse-cyan);">"Absorbed"</strong>.
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            If SWRs are weak → Determine as <strong style="color: var(--synapse-cyan);">"Not Absorbed"</strong> → App prompts user to "take another bread slice" (re-stimulation).
-                        </li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 style="color: var(--signal-white); font-family: 'Chakra Petch', sans-serif; font-size: 1.3em; margin-bottom: 15px; text-transform: uppercase;">6. Product Launch: SynaFlex App Store</h4>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Launch:</strong> Release iOS/Android client, connect to compatible BCI hardware.</p>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Initial SKUs:</strong></p>
-                    <ul style="list-style: none; padding-left: 0; margin-bottom: 20px;">
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            "Survival Spanish"
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            "Basic Calculus"
-                        </li>
-                        <li style="margin-bottom: 10px; padding-left: 25px; color: var(--text-secondary); position: relative;">
-                            <span style="position: absolute; left: 0; color: var(--synapse-cyan);">•</span>
-                            "Wine Tasting 101"
-                        </li>
-                    </ul>
-                    <p style="margin-top: 20px; color: var(--text-secondary);"><strong style="color: var(--signal-white);">Features:</strong> Complete lifecycle management of "Download → Write → Decay → Consolidate".</p>
+                <div class="roadmap-timeline">
+                    <!-- Phase 1 -->
+                    <div class="roadmap-phase">
+                        <div class="phase-header">
+                            <h3 class="phase-title">Phase 1: PoC & Data Infrastructure</h3>
+                            <p class="phase-subtitle">Objective: Prove algorithm effectiveness with non-invasive devices</p>
+                            <p class="phase-timeline">Timeline: 0 - 12 months</p>
+                        </div>
+                        <div class="phase-content">
+                            <div class="phase-item">
+                                <h4 class="phase-item-title">1. Knowledge Graph Engine</h4>
+                                <div class="phase-item-content">
+                                    <p>Build SDR-based knowledge base. Integrate <strong>Wolfram Alpha</strong> API. Partner with <strong>Duolingo</strong> for optimal learning paths. Output: Vector Embeddings.</p>
+                                </div>
+                            </div>
+                            <div class="phase-item">
+                                <h4 class="phase-item-title">2. SynaFlex v0.1 (Non-Invasive Demo)</h4>
+                                <div class="phase-item-content">
+                                    <p>Hardware: <strong>OpenBCI (Galea)</strong> or <strong>tDCS</strong> devices.</p>
+                                    <p><strong>"The 300% Challenge":</strong></p>
+                                    <ul>
+                                        <li>50 volunteers memorize obscure words</li>
+                                        <li>Control vs. Experimental groups</li>
+                                        <li>KPI: 300% increase in <strong>Memory Retention Rate</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phase 2 -->
+                    <div class="roadmap-phase">
+                        <div class="phase-header">
+                            <h3 class="phase-title">Phase 2: The Protocol & Translation</h3>
+                            <p class="phase-subtitle">Objective: Bridge silicon data to carbon signals</p>
+                            <p class="phase-timeline">Timeline: 12 - 24 months</p>
+                        </div>
+                        <div class="phase-content">
+                            <div class="phase-item">
+                                <h4 class="phase-item-title">3. Neuro-Content Protocol (NCP)</h4>
+                                <div class="phase-item-content">
+                                    <p>Partner: <strong>Theodore Berger (USC) & Dong Song</strong> team.</p>
+                                    <ul>
+                                        <li>Map knowledge vectors to <strong>Spatiotemporal Spike Patterns</strong> (CA1/CA3)</li>
+                                        <li>Define syntax for causal/parallel relationships</li>
+                                        <li>Optimize with <strong>Numenta HTM Theory</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="phase-item">
+                                <h4 class="phase-item-title">4. In-Vivo Validation</h4>
+                                <div class="phase-item-content">
+                                    <p>Hardware: <strong>Blackrock Neurotech</strong>. Test NCP-encoded logic on implanted subjects. Measure learning time reduction.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Phase 3 -->
+                    <div class="roadmap-phase">
+                        <div class="phase-header">
+                            <h3 class="phase-title">Phase 3: Closed Loop & Launch</h3>
+                            <p class="phase-subtitle">Objective: Absorption rate assessment & SynaFlex 1.0 App</p>
+                            <p class="phase-timeline">Timeline: 24 - 36 months</p>
+                        </div>
+                        <div class="phase-content">
+                            <div class="phase-item">
+                                <h4 class="phase-item-title">5. Neural Echo Monitoring</h4>
+                                <div class="phase-item-content">
+                                    <p>Monitor <strong>Sharp-Wave Ripples (SWRs)</strong>. Algorithm: If SWRs correlate with input → <strong>"Absorbed"</strong>. If weak → prompt re-stimulation.</p>
+                                </div>
+                            </div>
+                            <div class="phase-item">
+                                <h4 class="phase-item-title">6. SynaFlex App Store Launch</h4>
+                                <div class="phase-item-content">
+                                    <p>Release iOS/Android client. Connect to BCI hardware.</p>
+                                    <p><strong>Initial SKUs:</strong></p>
+                                    <ul>
+                                        <li>"Survival Spanish"</li>
+                                        <li>"Basic Calculus"</li>
+                                        <li>"Wine Tasting 101"</li>
+                                    </ul>
+                                    <p>Full lifecycle: Download → Write → Decay → Consolidate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
